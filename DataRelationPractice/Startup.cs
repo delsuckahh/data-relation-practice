@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using DataRelationPractice.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using DataRelationPractice.Models;
 
 namespace DataRelationPractice
 {
@@ -38,9 +39,12 @@ namespace DataRelationPractice
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDefaultIdentity<IdentityUser>()
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+                .AddEntityFrameworkStores<ApplicationDbContext>();          
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            services.AddTransient<UserManager<ApplicationUser>>();
+            services.AddTransient<ApplicationDbContext>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
